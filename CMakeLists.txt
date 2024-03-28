@@ -14,6 +14,10 @@ add_executable(lox main.cpp
         Scanner.h
         Lox.cpp
         Lox.h
+        Expr.cpp
+        Expr.h
+        ASTPrinter.cpp
+        ASTPrinter.h
 )
 
 # Link the Readline library to your executable

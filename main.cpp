@@ -15,7 +15,8 @@ void run(std::string_view source) {
   Lox::Scanner scanner(std::string(source.begin(), source.end()));
   std::vector<Lox::Token> tokens = scanner.scanTokens();
   if (global_debug_flag) {
-    std::cout << "======== Scanner ========\n" << Lox::to_string(tokens) << "\n";
+    std::cout << "======== Scanner ========\n"
+              << Lox::to_string(tokens) << "\n";
   }
 }
 
