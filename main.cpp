@@ -3,13 +3,23 @@
 #include <fstream>
 #include <iostream>
 
+#include "ASTPrinter.h"
 #include "Scanner.h"
+#include "Token.h"
 
 bool global_debug_flag = false;
 
 void run(std::string_view source) {
   if (global_debug_flag) {
     std::cout << "Running program " << source << "\n";
+
+    //    std::shared_ptr<Lox::Expr> expr = std::make_shared<Lox::Binary>(
+    //        std::make_shared<Lox::Literal>(1.0),
+    //        Lox::Token(Lox::TokenType::PLUS, "+", 1),
+    //        std::make_shared<Lox::Literal>(2.0));
+    //
+    //    Lox::ASTPrinter printer;
+    //    std::cout << printer.print(expr.get()) << "\n";
   }
 
   Lox::Scanner scanner(std::string(source.begin(), source.end()));
