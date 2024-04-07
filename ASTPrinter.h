@@ -19,21 +19,23 @@ struct ASTPrinter : public Expr::Visitor {
     return result;
   }
 
-  void visitAssign(const Assign &expr) override {
+  std::any visitAssign(const Assign &expr) override {
     result += "(= " + expr.name.getLexeme() + " ";
     expr.value->accept(*this);
     result += ")";
+    return {};
   }
 
-  void visitBinary(const Binary &expr) override {
+  std::any visitBinary(const Binary &expr) override {
     result += "(" + expr.op.getLexeme() + " ";
     expr.left->accept(*this);
     result += " ";
     expr.right->accept(*this);
     result += ")";
+    return {};
   }
 
-  void visitCall(const Call &expr) override {
+  std::any visitCall(const Call &expr) override {
     result += "(call ";
     expr.callee->accept(*this);
     for (const auto &arg : expr.arguments) {
@@ -41,21 +43,27 @@ struct ASTPrinter : public Expr::Visitor {
       arg->accept(*this);
     }
     result += ")";
+
+    return {};
   }
 
-  void visitGet(const Get &expr) override {
+  std::any visitGet(const Get &expr) override {
     result += "(get ";
     expr.object->accept(*this);
     result += "." + expr.name.getLexeme() + ")";
+
+    return {};
   }
 
-  void visitGrouping(const Grouping &expr) override {
+  std::any visitGrouping(const Grouping &expr) override {
     result += "(group ";
     expr.expression->accept(*this);
     result += ")";
+
+    return {};
   }
 
-  void visitLiteral(const Literal &expr) override {
+  std::any visitLiteral(const Literal &expr) override {
     std::visit(
         [&](const auto &value) {
           if constexpr (std::is_same_v<std::string,
@@ -72,38 +80,53 @@ struct ASTPrinter : public Expr::Visitor {
           Lox::error(1, "Unknown literal type");
         },
         expr.value);
+
+    return {};
   }
 
-  void visitLogical(const Logical &expr) override {
+  std::any visitLogical(const Logical &expr) override {
     result += "(" + expr.op.getLexeme() + " ";
     expr.left->accept(*this);
     result += " ";
     expr.right->accept(*this);
     result += ")";
+
+    return {};
   }
 
-  void visitSet(const Set &expr) override {
+  std::any visitSet(const Set &expr) override {
     result += "(set ";
     expr.object->accept(*this);
     result += "." + expr.name.getLexeme() + " ";
     expr.value->accept(*this);
     result += ")";
+
+    return {};
   }
 
-  void visitSuper(const Super &expr) override {
+  std::any visitSuper(const Super &expr) override {
     result += "(super " + expr.method.getLexeme() + ")";
+
+    return {};
   }
 
-  void visitThis(const This &expr) override { result += "(this)"; }
+  std::any visitThis(const This &expr) override {
+    result += "(this)";
+    return {};
+  }
 
-  void visitUnary(const Unary &expr) override {
+  std::any visitUnary(const Unary &expr) override {
     result += "(" + expr.op.getLexeme() + " ";
     expr.right->accept(*this);
     result += ")";
+
+    return {};
   }
 
-  void visitVariable(const Variable &expr) override {
+  std::any visitVariable(const Variable &expr) override {
     result += "(var " + expr.name.getLexeme() + ")";
+
+    return {};
   }
 };
 

@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include "ASTPrinter.h"
+#include "Interpreter.h"
+#include "Parser.h"
 #include "Scanner.h"
 #include "Token.h"
 
@@ -13,20 +15,21 @@ void run(std::string_view source) {
   if (global_debug_flag) {
     std::cout << "Running program " << source << "\n";
 
-    //    std::shared_ptr<Lox::Expr> expr = std::make_shared<Lox::Binary>(
-    //        std::make_shared<Lox::Literal>(1.0),
-    //        Lox::Token(Lox::TokenType::PLUS, "+", 1),
-    //        std::make_shared<Lox::Literal>(2.0));
-    //
-    //    Lox::ASTPrinter printer;
-    //    std::cout << printer.print(expr.get()) << "\n";
-  }
+    Lox::Scanner scanner(std::string(source.begin(), source.end()));
+    std::vector<Lox::Token> tokens = scanner.scanTokens();
+    Lox::Parser parser(tokens);
+    auto expr = parser.parse();
+    Lox::ASTPrinter printer;
+    std::cout << "======== Parser ========\n";
+    std::cout << printer.print(expr.get()) << "\n";
+    std::cout << "======== Interpreter ========\n";
+    Lox::Interpreter interpreter;
+    interpreter.interpret(expr.get());
 
-  Lox::Scanner scanner(std::string(source.begin(), source.end()));
-  std::vector<Lox::Token> tokens = scanner.scanTokens();
-  if (global_debug_flag) {
-    std::cout << "======== Scanner ========\n"
-              << Lox::to_string(tokens) << "\n";
+    //  if (global_debug_flag) {
+    //    std::cout << "======== Scanner ========\n"
+    //              << Lox::to_string(tokens) << "\n";
+    //  }
   }
 }
 

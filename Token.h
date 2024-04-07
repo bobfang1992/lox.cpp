@@ -32,6 +32,14 @@ public:
   [[nodiscard]] std::string getLexeme() const { return lexeme; }
 
   [[nodiscard]] int getLine() const { return line; }
+
+  [[nodiscard]] double getNumber() const {
+    return std::any_cast<double>(literal);
+  }
+
+  [[nodiscard]] std::string getString() const {
+    return std::any_cast<std::string>(literal);
+  }
 };
 
 inline std::string to_string(const Token &token) {
