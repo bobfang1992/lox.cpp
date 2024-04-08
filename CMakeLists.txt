@@ -22,6 +22,8 @@ add_executable(lox main.cpp
         Parser.h
         Interpreter.cpp
         Interpreter.h
+        Statement.cpp
+        Statement.h
 )
 
 # Link the Readline library to your executable

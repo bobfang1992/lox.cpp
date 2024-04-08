@@ -116,7 +116,7 @@ struct ASTPrinter : public Expr::Visitor {
   }
 
   std::any visitUnary(const Unary &expr) override {
-    result += "(" + expr.op.getLexeme() + " ";
+    result += "(u" + expr.op.getLexeme() + " ";
     expr.right->accept(*this);
     result += ")";
 

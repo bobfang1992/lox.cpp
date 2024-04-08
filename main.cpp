@@ -23,8 +23,8 @@ void run(std::string_view source) {
     std::cout << "======== Parser ========\n";
     std::cout << printer.print(expr.get()) << "\n";
     std::cout << "======== Interpreter ========\n";
-    Lox::Interpreter interpreter;
-    interpreter.interpret(expr.get());
+    //    Lox::Interpreter interpreter;
+    //    interpreter.interpret(expr.get());
 
     //  if (global_debug_flag) {
     //    std::cout << "======== Scanner ========\n"
